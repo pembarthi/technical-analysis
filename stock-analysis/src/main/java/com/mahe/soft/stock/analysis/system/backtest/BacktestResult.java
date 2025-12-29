@@ -1,10 +1,9 @@
 package com.mahe.soft.stock.analysis.system.backtest;
 
 import com.mahe.soft.stock.analysis.system.model.Trade;
+import java.util.List;
 import lombok.Builder;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 @Builder

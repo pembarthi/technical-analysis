@@ -1,10 +1,6 @@
 package com.mahe.soft.stock.db.ingest;
 
 import com.mahe.soft.stock.db.service.StockService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.stereotype.Service;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
@@ -12,6 +8,9 @@ import java.util.Enumeration;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor

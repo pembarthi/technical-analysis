@@ -7,15 +7,14 @@ import com.mahe.soft.stock.analysis.system.backtest.BacktestResult;
 import com.mahe.soft.stock.analysis.system.mapper.CandleMapper;
 import com.mahe.soft.stock.analysis.system.model.Candle;
 import com.mahe.soft.stock.analysis.system.strategy.TradingStrategy;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v2/analysis")

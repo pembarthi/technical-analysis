@@ -2,10 +2,9 @@ package com.mahe.soft.stock.analysis.system.mapper;
 
 import com.mahe.soft.stock.analysis.dto.StockPriceDto;
 import com.mahe.soft.stock.analysis.system.model.Candle;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Component;
 
 @Component
 public class CandleMapper {

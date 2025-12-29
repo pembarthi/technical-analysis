@@ -1,23 +1,22 @@
 package com.mahe.soft.stock.analysis.service;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
 import com.mahe.soft.stock.analysis.client.StockDbClient;
 import com.mahe.soft.stock.analysis.strategy.TradingStrategy;
 import com.mahe.soft.stock.analysis.strategy.impl.RsiStrategy;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class BacktestServiceTest {
@@ -33,7 +32,7 @@ class BacktestServiceTest {
 
     @Test
     void testRunBacktest_StrategyNotFound() {
-        assertThrows(RuntimeException.class, () -> 
+        assertThrows(RuntimeException.class, () ->
             backtestService.runBacktest("AAPL", "UnknownStrategy"));
     }
 

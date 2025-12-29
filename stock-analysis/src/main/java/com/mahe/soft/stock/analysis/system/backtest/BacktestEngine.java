@@ -4,11 +4,10 @@ import com.mahe.soft.stock.analysis.system.model.Candle;
 import com.mahe.soft.stock.analysis.system.model.Trade;
 import com.mahe.soft.stock.analysis.system.model.TradeSignal;
 import com.mahe.soft.stock.analysis.system.strategy.TradingStrategy;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j

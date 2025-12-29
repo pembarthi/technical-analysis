@@ -1,9 +1,8 @@
 package com.mahe.soft.stock.analysis.system.model;
 
+import java.time.LocalDate;
 import lombok.Builder;
 import lombok.Data;
-
-import java.time.LocalDate;
 
 @Data
 @Builder

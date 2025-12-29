@@ -1,11 +1,11 @@
 package com.mahe.soft.stock.analysis.system.dsl;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import com.mahe.soft.stock.analysis.system.dsl.model.DslStrategyDefinition;
 import com.mahe.soft.stock.analysis.system.dsl.model.IndicatorExpression;
 import com.mahe.soft.stock.analysis.system.dsl.model.ValueExpression;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class DslParserTest {
 

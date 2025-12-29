@@ -1,7 +1,8 @@
 package com.mahe.soft.stock.analysis.service;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 class TALibServiceTest {
 

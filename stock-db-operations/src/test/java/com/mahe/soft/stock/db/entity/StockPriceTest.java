@@ -1,9 +1,10 @@
 package com.mahe.soft.stock.db.entity;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class StockPriceTest {
 

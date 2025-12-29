@@ -10,7 +10,7 @@ public interface TradingStrategy {
     /**
      * Evaluates the market data and generates a signal for the *current* (last)
      * candle.
-     * 
+     *
      * @param candles Historical data up to the current moment. Last element is the
      *                latest.
      * @return TradeSignal (BUY, SELL, HOLD) with confidence.

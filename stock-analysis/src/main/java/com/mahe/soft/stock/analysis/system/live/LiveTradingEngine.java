@@ -7,14 +7,13 @@ import com.mahe.soft.stock.analysis.system.model.Candle;
 import com.mahe.soft.stock.analysis.system.model.TradeSignal;
 import com.mahe.soft.stock.analysis.system.paper.PaperOrder;
 import com.mahe.soft.stock.analysis.system.strategy.TradingStrategy;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 @RequiredArgsConstructor

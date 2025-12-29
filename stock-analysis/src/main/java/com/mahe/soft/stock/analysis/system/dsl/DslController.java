@@ -8,12 +8,10 @@ import com.mahe.soft.stock.analysis.system.backtest.BacktestResult;
 import com.mahe.soft.stock.analysis.system.dsl.model.DslStrategyDefinition;
 import com.mahe.soft.stock.analysis.system.mapper.CandleMapper;
 import com.mahe.soft.stock.analysis.system.model.Candle;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v2/dsl")

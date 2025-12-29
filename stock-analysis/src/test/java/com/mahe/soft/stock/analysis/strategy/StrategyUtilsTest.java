@@ -1,11 +1,12 @@
 package com.mahe.soft.stock.analysis.strategy;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import com.mahe.soft.stock.analysis.dto.StockPriceDto;
-import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class StrategyUtilsTest {
 

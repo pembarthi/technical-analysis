@@ -3,9 +3,8 @@ package com.mahe.soft.stock.analysis.service;
 import com.tictactec.ta.lib.Core;
 import com.tictactec.ta.lib.MAType;
 import com.tictactec.ta.lib.MInteger;
-import org.springframework.stereotype.Service;
-
 import java.util.Arrays;
+import org.springframework.stereotype.Service;
 
 /**
  * Service wrapper for TA-Lib Core functions.

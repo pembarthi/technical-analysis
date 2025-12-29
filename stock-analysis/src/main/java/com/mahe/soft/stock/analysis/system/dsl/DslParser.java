@@ -1,14 +1,12 @@
 package com.mahe.soft.stock.analysis.system.dsl;
 
 import com.mahe.soft.stock.analysis.system.dsl.model.*;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
 @Service
 public class DslParser {

@@ -4,10 +4,9 @@ import com.mahe.soft.stock.analysis.dto.StockPriceDto;
 import com.mahe.soft.stock.analysis.service.TALibService;
 import com.mahe.soft.stock.analysis.strategy.TradeSignal;
 import com.mahe.soft.stock.analysis.strategy.TradingStrategy;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor

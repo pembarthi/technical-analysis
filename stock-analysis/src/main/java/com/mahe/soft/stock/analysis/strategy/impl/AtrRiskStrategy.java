@@ -5,10 +5,9 @@ import com.mahe.soft.stock.analysis.service.TALibService;
 import com.mahe.soft.stock.analysis.strategy.StrategyUtils;
 import com.mahe.soft.stock.analysis.strategy.TradeSignal;
 import com.mahe.soft.stock.analysis.strategy.TradingStrategy;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -34,7 +33,7 @@ public class AtrRiskStrategy implements TradingStrategy {
      * No, user asked for "Java trading Strategies".
      * I'll implement a simple breakout Entry with ATR trailing stop logic
      * simulation?
-     * 
+     *
      * Let's make it a simple Volatility Breakout strategy:
      * Buy if Price > Price[i-1] + ATR
      * Sell if Price < Price[i-1] - ATR

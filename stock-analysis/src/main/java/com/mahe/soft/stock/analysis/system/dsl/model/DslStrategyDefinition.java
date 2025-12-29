@@ -1,8 +1,8 @@
 package com.mahe.soft.stock.analysis.system.dsl.model;
 
-import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Data;
 
 @Data
 public class DslStrategyDefinition {

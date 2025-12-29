@@ -5,10 +5,9 @@ import com.mahe.soft.stock.analysis.system.dsl.model.*;
 import com.mahe.soft.stock.analysis.system.model.Candle;
 import com.mahe.soft.stock.analysis.system.model.TradeSignal;
 import com.mahe.soft.stock.analysis.system.strategy.TradingStrategy;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor

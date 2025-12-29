@@ -1,26 +1,24 @@
 package com.mahe.soft.stock.analysis.system.paper;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
 import com.mahe.soft.stock.analysis.client.StockDbClient;
 import com.mahe.soft.stock.analysis.dto.StockPriceDto;
 import com.mahe.soft.stock.analysis.system.mapper.CandleMapper;
 import com.mahe.soft.stock.analysis.system.model.Candle;
 import com.mahe.soft.stock.analysis.system.model.TradeSignal;
 import com.mahe.soft.stock.analysis.system.strategy.TradingStrategy;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class PaperTradingEngineTest {

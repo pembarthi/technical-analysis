@@ -4,10 +4,9 @@ import com.mahe.soft.stock.analysis.service.TALibService;
 import com.mahe.soft.stock.analysis.system.model.Candle;
 import com.mahe.soft.stock.analysis.system.model.TradeSignal;
 import com.mahe.soft.stock.analysis.system.strategy.BaseStrategy;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component("MacdTrendPro")
 @RequiredArgsConstructor

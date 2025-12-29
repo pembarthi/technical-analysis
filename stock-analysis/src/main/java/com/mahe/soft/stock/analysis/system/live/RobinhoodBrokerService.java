@@ -2,10 +2,9 @@ package com.mahe.soft.stock.analysis.system.live;
 
 import com.mahe.soft.stock.analysis.system.paper.PaperAccount;
 import com.mahe.soft.stock.analysis.system.paper.PaperOrder;
+import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Service
 @Slf4j

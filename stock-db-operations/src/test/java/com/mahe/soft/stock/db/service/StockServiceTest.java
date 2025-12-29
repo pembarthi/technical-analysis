@@ -1,23 +1,21 @@
 package com.mahe.soft.stock.db.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import com.mahe.soft.stock.db.entity.StockPrice;
 import com.mahe.soft.stock.db.repository.StockPriceRepository;
+import java.io.StringReader;
+import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.io.StringReader;
-import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class StockServiceTest {
@@ -33,12 +31,12 @@ class StockServiceTest {
         String symbol = "AAPL";
         LocalDate start = LocalDate.of(2023, 1, 1);
         LocalDate end = LocalDate.of(2023, 1, 31);
-        
+
         when(repository.findBySymbolAndTradeDateBetweenOrderByTradeDateAsc(symbol, start, end))
                 .thenReturn(Collections.emptyList());
 
         List<StockPrice> result = stockService.getStockPrices(symbol, start, end);
-        
+
         assertNotNull(result);
         verify(repository).findBySymbolAndTradeDateBetweenOrderByTradeDateAsc(symbol, start, end);
     }
