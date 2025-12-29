@@ -79,6 +79,35 @@ Trigger a backtest for a specific stock and strategy.
 curl -X POST "http://localhost:8082/api/analysis/backtest?symbol=AAPL&strategy=RSI+Strategy"
 ```
 
+## Trading Strategies
+
+The `stock-analysis` module includes 10 comprehensive strategies powered by TA-Lib:
+
+| Strategy | Description | Indicators Used |
+| :--- | :--- | :--- |
+| **MA Crossover** | Buy when Fast EMA (12) crosses above Slow EMA (26). Sell on cross below. | EMA |
+| **MACD Trend** | Buy when MACD > Signal & Histogram > 0. Sell on bearish cross. | MACD (12, 26, 9) |
+| **Bollinger Squeeze** | Trades breakouts from low volatility squeezes (< 5% band width). | BBANDS (20, 2.0) |
+| **RSI Mean Reversion** | Buy when RSI < 30 (Oversold) & Price > 200 EMA (Uptrend). | RSI (14), EMA (200) |
+| **Candlestick Reversal** | Detects Hammer, Engulfing, Morning/Shooting Star patterns. | CDL Patterns |
+| **Breakout + Volume** | Buy when Price breaks 20-day High with > 1.5x Avg Volume. | SMA(Vol), Range |
+| **Multi-Indicator** | Strong signals: Price > 200 EMA + RSI [40-60] + Bullish Candle. | EMA, RSI, CDL |
+| **ATR Risk** | Demonstrates volatility-based stops/entries using ATR. | ATR (14) |
+| **Swing Trading** | Pullback to 21 EMA + RSI > 40 + Bullish Candle. | EMA, RSI, CDL |
+| **Win Rate RSI** | A baseline RSI strategy for benchmarking. | RSI (14) |
+
+## Real-Time Trading Workflow
+
+This system works as a robust engine for both backtesting and potential real-time trading:
+
+1. **Data Ingestion**: The `stock-db-operations` service continuously updates price data (e.g., via bulk ingestion or scheduled fetchers).
+2. **Strategy Execution**: The `stock-analysis` service fetches the latest `N` candles for a symbol from the DB.
+3. **Signal Generation**:
+    - The `TradingStrategy` implementations (like `MacdStrategy`) process the list of candles.
+    - TA-Lib calculates indicators (e.g., MACD, RSI) on the entire series.
+    - The strategy logic evaluates the **latest candle** (and previous contexts) to determine a signal (`BUY`, `SELL`, `HOLD`).
+4. **Action**: In a live setup, a `BUY` signal would trigger an order placement to a broker API (e.g., Robinhood, Alpaca), subject to risk checks defined in strategies like `AtrRiskStrategy`.
+
 ## Infrastructure
 
 - **Docker**: Dockerfiles are located in each module directory.
