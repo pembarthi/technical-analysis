@@ -32,7 +32,7 @@ public class RsiStrategy implements TradingStrategy {
                 .toArray();
 
         // TA-Lib requires doubles
-        double[] rsiValues = taLibService.calculateRSI(closePrices, PERIOD);
+        double[] rsiValues = taLibService.rsi(closePrices, PERIOD);
 
         // Check the last available RSI value
         // The output of TA-Lib is smaller than input.
