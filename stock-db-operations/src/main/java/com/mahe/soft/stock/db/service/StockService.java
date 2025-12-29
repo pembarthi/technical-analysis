@@ -47,10 +47,12 @@ public class StockService {
     @Transactional
     public int saveFromReader(Reader reader) {
         List<StockPrice> stockPrices = new ArrayList<>();
-        // Format: d-MMM-yy (e.g. 2-Jan-12) OR yyyy-MM-dd
+        // Format: d-MMM-yyyy, d-MMM-yy, yyyy-MM-dd
+        // Note: Put longer patterns first to avoid partial matching (e.g. 2012 matching
+        // yy=20)
         java.time.format.DateTimeFormatter formatter = new java.time.format.DateTimeFormatterBuilder()
                 .parseCaseInsensitive()
-                .appendPattern("[d-MMM-yy][yyyy-MM-dd]")
+                .appendPattern("[d-MMM-yyyy][d-MMM-yy][yyyy-MM-dd]")
                 .toFormatter(java.util.Locale.ENGLISH);
 
         BufferedReader bufferedReader = (reader instanceof BufferedReader) ? (BufferedReader) reader
