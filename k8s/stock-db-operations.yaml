@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stock-db-operations
+  labels:
+    app: stock-db-operations
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stock-db-operations
+  template:
+    metadata:
+      labels:
+        app: stock-db-operations
+    spec:
+      containers:
+      - name: stock-db-operations
+        image: stock-db-operations:latest
+        ports:
+        - containerPort: 8081
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:mariadb://mariadb:3306/mahe_stocks"
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stock-db-operations
+spec:
+  selector:
+    app: stock-db-operations
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
