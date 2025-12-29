@@ -1,4 +1,4 @@
-# Stock Trading Microservices
+# Automated Stock Trading System
 
 A production-ready, multi-module Spring Boot project for stock market data ingestion, technical analysis, and strategy backtesting.
 
