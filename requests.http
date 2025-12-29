@@ -1,0 +1,26 @@
+### Ingest Stock Data (CSV Upload)
+# Make sure sample.csv exists in the specified path or project root
+POST http://localhost:8081/api/stocks/upload
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="sample.csv"
+Content-Type: text/csv
+
+< ./sample.csv
+--boundary--
+
+### Get Stock Prices (AAPL)
+GET http://localhost:8081/api/stocks/AAPL
+Accept: application/json
+
+### Get Stock Prices with Date Range
+GET http://localhost:8081/api/stocks/AAPL?startDate=2023-01-01&endDate=2023-12-31
+Accept: application/json
+
+### Delete Stock Data
+DELETE http://localhost:8081/api/stocks/AAPL
+
+### Run Backtest (RSI Strategy)
+POST http://localhost:8082/api/analysis/backtest?symbol=AAPL&strategy=RSI Strategy
+Accept: application/json
