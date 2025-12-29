@@ -3,7 +3,6 @@ package com.mahe.soft.stock.analysis.service;
 import com.tictactec.ta.lib.Core;
 import com.tictactec.ta.lib.MAType;
 import com.tictactec.ta.lib.MInteger;
-import com.tictactec.ta.lib.MInteger;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -283,11 +282,6 @@ public class TALibService {
     }
 
     public double[] trange(double[] inHigh, double[] inLow, double[] inClose) {
-        double[] out = new double[inHigh.length];
-        MInteger begin = new MInteger();
-        MInteger length = new MInteger();
-        // lib.trange(0, inHigh.length - 1, inHigh, inLow, inClose, begin, length, out);
-        // return alignResult(out, begin, inHigh.length);
         throw new UnsupportedOperationException("TRANGE not supported in this TA-Lib version");
     }
 
