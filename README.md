@@ -108,6 +108,63 @@ This system works as a robust engine for both backtesting and potential real-tim
     - The strategy logic evaluates the **latest candle** (and previous contexts) to determine a signal (`BUY`, `SELL`, `HOLD`).
 4. **Action**: In a live setup, a `BUY` signal would trigger an order placement to a broker API (e.g., Robinhood, Alpaca), subject to risk checks defined in strategies like `AtrRiskStrategy`.
 
+## Professional Trading Platform (V2)
+
+The system now includes a comprehensive upgraded framework (`com.mahe.soft.stock.analysis.system`) supporting advanced workflows.
+
+### 1. Robust Backtesting
+
+Run backtests with detailed metrics including **Sharpe Ratio**, **Max Drawdown**, and **Profit Factor**.
+
+```bash
+# Run Backtest
+curl -X POST "http://localhost:8082/api/v2/analysis/backtest?symbol=AAPL&strategyName=EmaCrossoverPro"
+
+# Download CSV Report
+curl "http://localhost:8082/api/v2/analysis/backtest/csv?symbol=AAPL&strategyName=EmaCrossoverPro"
+```
+
+### 2. Strategy DSL
+
+Define trading strategies dynamically using a text-based syntax. API compiles and executes them on the fly.
+
+**Example Script:**
+
+```text
+STRATEGY DynamicScalp
+ENTRY:
+  RSI(14) < 30
+  AND EMA(12) > EMA(26)
+EXIT:
+  RSI(14) > 70
+```
+
+```bash
+# Execute DSL Backtest
+curl -X POST "http://localhost:8082/api/v2/dsl/backtest?symbol=AAPL" -d "STRATEGY..."
+```
+
+### 3. Paper Trading Simulator
+
+Test strategies in a risk-free environment with a virtual account that simulates order fills and tracks PnL in real-time.
+
+```bash
+# Start Simulation
+curl -X POST "http://localhost:8082/api/v2/paper/start?symbol=AAPL&strategyName=MacdTrendPro&initialCapital=100000"
+
+# Check Status
+curl "http://localhost:8082/api/v2/paper/status?sessionId=..."
+```
+
+### 4. Live Trading Integration
+
+Ready for live execution with a pluggable `BrokerService`. Includes a pre-configured **Robinhood** stub.
+
+```bash
+# Start Live Trading
+curl -X POST "http://localhost:8082/api/v2/live/start?symbol=AAPL&strategyName=EmaCrossoverPro"
+```
+
 ## Infrastructure
 
 - **Docker**: Dockerfiles are located in each module directory.
