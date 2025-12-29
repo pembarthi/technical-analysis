@@ -23,6 +23,7 @@ mariadb-java-client = { group = "org.mariadb.jdbc", name = "mariadb-java-client"
 ta-lib = { group = "com.tictactec", name = "ta-lib", version.ref = "taLib" }
 commons-csv = { group = "org.apache.commons", name = "commons-csv", version.ref = "commonsCsv" }
 springdoc-openapi-starter-webmvc-ui = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
+junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
