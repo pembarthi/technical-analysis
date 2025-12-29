@@ -61,6 +61,15 @@ curl -F "file=@sample.csv" http://localhost:8081/api/stocks/upload
 curl "http://localhost:8081/api/stocks/AAPL"
 ```
 
+### Bulk Ingestion (Local Folder)
+
+Trigger a bulk ingestion process that scans a root directory, unzips all `.zip` files into an `unzip` subdirectory, and ingests the CSV data into the database.
+
+```bash
+# Default path: C:\Users\pemba\git\stock-data
+curl -X POST "http://localhost:8081/api/stocks/bulk-upload?rootPath=C:\Users\pemba\git\stock-data"
+```
+
 ### Run Backtest
 
 Trigger a backtest for a specific stock and strategy.
