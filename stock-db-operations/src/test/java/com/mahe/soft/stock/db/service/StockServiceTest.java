@@ -29,6 +29,32 @@ class StockServiceTest {
     private StockService stockService;
 
     @Test
+    void testGetStockPrices() {
+        String symbol = "AAPL";
+        LocalDate start = LocalDate.of(2023, 1, 1);
+        LocalDate end = LocalDate.of(2023, 1, 31);
+        
+        when(repository.findBySymbolAndTradeDateBetweenOrderByTradeDateAsc(symbol, start, end))
+                .thenReturn(Collections.emptyList());
+
+        List<StockPrice> result = stockService.getStockPrices(symbol, start, end);
+        
+        assertNotNull(result);
+        verify(repository).findBySymbolAndTradeDateBetweenOrderByTradeDateAsc(symbol, start, end);
+    }
+
+    @Test
+    void testGetStockPrices_NoDates() {
+        String symbol = "AAPL";
+        when(repository.findBySymbolOrderByTradeDateAsc(symbol)).thenReturn(Collections.emptyList());
+
+        List<StockPrice> result = stockService.getStockPrices(symbol, null, null);
+
+        assertNotNull(result);
+        verify(repository).findBySymbolOrderByTradeDateAsc(symbol);
+    }
+
+    @Test
     void testSaveFromReader_ValidCsv() {
         String csvContent = "Symbol,Date,Open,High,Low,Close,Volume\n" +
                 "AAPL,2-Jan-20,100.0,105.0,99.0,102.0,1000";
@@ -66,5 +92,12 @@ class StockServiceTest {
 
         assertEquals(1, count);
         assertEquals("GOOG", captor.getValue().get(0).getSymbol());
+    }
+
+    @Test
+    void testDeleteBySymbol() {
+        String symbol = "AAPL";
+        stockService.deleteBySymbol(symbol);
+        verify(repository).deleteBySymbol(symbol);
     }
 }
