@@ -31,11 +31,11 @@ DELETE http://localhost:8081/api/stocks/ARKK
 Accept: application/json
 
 ### Run Pro Backtest (v2)
-POST http://localhost:8082/api/v2/analysis/backtest?symbol=ARKK&strategyName=RSI&capital=10000&from=2020-01-01&to=2023-12-31
+POST http://localhost:8082/api/v2/analysis/backtest?symbol=AAPL&strategyName=MacdTrendPro&capital=10000&from=2014-01-01&to=2024-12-31
 Accept: application/json
 
 ### Run Pro Backtest CSV Download
-GET http://localhost:8082/api/v2/analysis/backtest/csv?symbol=ARKK&strategyName=RSI&capital=10000
+GET http://localhost:8082/api/v2/analysis/backtest/csv?symbol=ARKK&strategyName=EmaCrossoverPro&capital=10000
 Accept: text/csv
 
 ### Run Backtest with DSL
@@ -57,11 +57,11 @@ POST http://localhost:8082/api/v2/live/stop?symbol=ARKK
 Accept: application/json
 
 ### Start Paper Trading
-POST http://localhost:8082/api/v2/paper/start?symbol=ARKK&strategyName=RSI&initialCapital=100000
+POST http://localhost:8082/api/v2/paper/start?symbol=ARKK&strategyName=CandlestickPro&initialCapital=100000
 Accept: application/json
 
 ### Stop Paper Trading
-POST http://localhost:8082/api/v2/paper/stop?sessionId=SESSION_ID_HERE
+POST http://localhost:8082/api/v2/paper/stop?sessionId=791a414f-f716-4b3e-a1f9-f1a7f2a11537
 Accept: application/json
 
 ### Get Paper Trading Status

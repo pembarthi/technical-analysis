@@ -23,16 +23,23 @@ public class StockDbClient {
 
     public List<StockPriceDto> getStockPrices(String symbol, java.time.LocalDate startDate,
             java.time.LocalDate endDate) {
-        return webClientBuilder.codecs(configurer -> configurer
+        return webClientBuilder
+                .baseUrl(stockDbUrl)
+                .codecs(configurer -> configurer
                 .defaultCodecs()
                 .maxInMemorySize(16 * 1024 * 1024)) // 16MB
                 .build()
                 .get()
-                .uri(uriBuilder -> uriBuilder
-                        .path(stockDbUrl + "/api/stocks/" + symbol)
-                        .queryParamIfPresent("startDate", java.util.Optional.ofNullable(startDate))
-                        .queryParamIfPresent("endDate", java.util.Optional.ofNullable(endDate))
-                        .build())
+                .uri(uriBuilder -> {
+                    uriBuilder.path("/api/stocks/" + symbol);
+                    if (startDate != null) {
+                        uriBuilder.queryParam("startDate", startDate);
+                    }
+                    if (endDate != null) {
+                        uriBuilder.queryParam("endDate", endDate);
+                    }
+                    return uriBuilder.build();
+                })
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<List<StockPriceDto>>() {
                 })

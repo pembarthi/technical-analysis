@@ -40,6 +40,7 @@ public class PaperTradingEngine {
     }
 
     public String startSimulation(String symbol, String strategyName, double initialCapital) {
+
         if (!strategies.containsKey(strategyName)) {
             throw new IllegalArgumentException("Strategy not found: " + strategyName);
         }
