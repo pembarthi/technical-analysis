@@ -8,6 +8,7 @@ dependencies {
     implementation(libs.spring.boot.starter.webflux) // For WebClient
     implementation(libs.spring.boot.starter.actuator)
     implementation(libs.ta.lib)
+    implementation(libs.springdoc.openapi.starter.webmvc.ui)
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
     testImplementation(libs.spring.boot.starter.test)

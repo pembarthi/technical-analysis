@@ -9,11 +9,13 @@ A production-ready, multi-module Spring Boot project for stock market data inges
 - **Port**: `8081`
 - **Database**: MariaDB
 - **Purpose**: Manages stock price data storage and CRUD operations. Supports CSV ingestion.
+- **Swagger UI**: [http://localhost:8081/swagger-ui/index.html](http://localhost:8081/swagger-ui/index.html)
 
 ### 2. `stock-analysis`
 
 - **Port**: `8082`
 - **Purpose**: Performs technical analysis (using TA-Lib), defines trading strategies, and runs backtests against the data in `stock-db-operations`.
+- **Swagger UI**: [http://localhost:8082/swagger-ui/index.html](http://localhost:8082/swagger-ui/index.html)
 
 ## Prerequisites
 
@@ -71,7 +73,7 @@ curl -X POST "http://localhost:8082/api/analysis/backtest?symbol=AAPL&strategy=R
 ## Infrastructure
 
 - **Docker**: Dockerfiles are located in each module directory.
-- **Kubernetes**: Manifests are in the `k8s/` directory.
+- **Kubernetes**: Manifests in `k8s/` folder for DB, App, and Analysis.
 
 ## Sample Data
 
