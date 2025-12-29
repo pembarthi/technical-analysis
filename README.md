@@ -146,15 +146,47 @@ curl -X POST "http://localhost:8082/api/v2/dsl/backtest?symbol=AAPL" -d "STRATEG
 
 ### 3. Paper Trading Simulator
 
-Test strategies in a risk-free environment with a virtual account that simulates order fills and tracks PnL in real-time.
+Test strategies in a risk-free environment. The simulator runs on a 1-minute `tick` loop, checking the latest available data in the database against your strategy.
 
-```bash
-# Start Simulation
-curl -X POST "http://localhost:8082/api/v2/paper/start?symbol=AAPL&strategyName=MacdTrendPro&initialCapital=100000"
+**Verification Workflow (How to test):**
 
-# Check Status
-curl "http://localhost:8082/api/v2/paper/status?sessionId=..."
-```
+1. **Start a Session**:
+
+    ```bash
+    # Start a session for AAPL with $100k capital using the MACD strategy
+    curl -X POST "http://localhost:8082/api/v2/paper/start?symbol=AAPL&strategyName=MacdTrendPro&initialCapital=100000"
+    # Response: <sessionId>
+    ```
+
+2. **Trigger a Signal (Simulate Market Data)**:
+    Since the simulator reads from your local DB, you can "force" a trade by uploading new data that satisfies the strategy condition.
+    - *Example*: To trigger a **BUY** in `MacdTrendPro`, append a row to your CSV with a price that causes the MACD line to cross above the Signal line (e.g., a sharp price increase).
+    - Upload the updated CSV:
+
+        ```bash
+        curl -F "file=@updated_data.csv" http://localhost:8081/api/stocks/upload
+        ```
+
+3. **Wait for Tick**:
+    The engine runs every 60 seconds. Wait for the next minute tick.
+
+4. **Validate Execution**:
+    Check the session status. You should see a new `Position` created or an `Order` in the history.
+
+    ```bash
+    curl "http://localhost:8082/api/v2/paper/status?sessionId=<sessionId>"
+    ```
+
+    *Response:*
+
+    ```json
+    {
+      "cashBalance": 90000.0,
+      "positions": [
+        { "symbol": "AAPL", "quantity": 50, "entryPrice": 150.0, ... }
+      ]
+    }
+    ```
 
 ### 4. Live Trading Integration
 
