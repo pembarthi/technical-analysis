@@ -24,3 +24,7 @@ DELETE http://localhost:8081/api/stocks/AAPL
 ### Run Backtest (RSI Strategy)
 POST http://localhost:8082/api/analysis/backtest?symbol=AAPL&strategy=RSI Strategy
 Accept: application/json
+
+### Run Buld upload of Stock Data from Directory
+POST http://localhost:8081/api/stocks/bulk-upload?rootPath=C:\Users\pemba\git\stock-data
+Accept: application/json

@@ -47,54 +47,93 @@ public class StockService {
     @Transactional
     public int saveFromReader(Reader reader) {
         List<StockPrice> stockPrices = new ArrayList<>();
-        // Format: d-MMM-yy (e.g. 2-Jan-12)
+        // Format: d-MMM-yy (e.g. 2-Jan-12) OR yyyy-MM-dd
         java.time.format.DateTimeFormatter formatter = new java.time.format.DateTimeFormatterBuilder()
                 .parseCaseInsensitive()
                 .appendPattern("[d-MMM-yy][yyyy-MM-dd]")
                 .toFormatter(java.util.Locale.ENGLISH);
 
+        BufferedReader bufferedReader = (reader instanceof BufferedReader) ? (BufferedReader) reader
+                : new BufferedReader(reader);
+
         try {
-            // Support both TDF (Tab) and generic formats by being permissive
+            // Detect delimiter
+            bufferedReader.mark(4096);
+            String firstLine = bufferedReader.readLine();
+            char delimiter = '\t'; // Default
+            if (firstLine != null) {
+                // Heuristic: if comma count > tab count, assume comma
+                long commaCount = firstLine.chars().filter(ch -> ch == ',').count();
+                long tabCount = firstLine.chars().filter(ch -> ch == '\t').count();
+                if (commaCount > tabCount) {
+                    delimiter = ',';
+                }
+            }
+            bufferedReader.reset();
+
+            // Build format
             CSVFormat format = CSVFormat.DEFAULT.builder()
                     .setHeader()
                     .setSkipHeaderRecord(true)
                     .setIgnoreHeaderCase(true)
                     .setTrim(true)
-                    .setDelimiter('\t') // Default to tab for user sample
+                    .setDelimiter(delimiter)
                     .setIgnoreEmptyLines(true)
                     .build();
 
-            try (CSVParser csvParser = new CSVParser(reader, format)) {
+            try (CSVParser csvParser = new CSVParser(bufferedReader, format)) {
                 for (CSVRecord csvRecord : csvParser) {
                     try {
                         StockPrice stockPrice = new StockPrice();
-                        // Flexible mapping
-                        stockPrice.setSymbol(
-                                csvRecord.isMapped("Symbol") ? csvRecord.get("Symbol") : csvRecord.get("symbol"));
+                        // Support various header names (Case insensitive handling by parser helps, but
+                        // mapping checks needed)
 
-                        String dateStr = csvRecord.isMapped("Date") ? csvRecord.get("Date")
-                                : csvRecord.get("trade_date");
+                        // Symbol
+                        String symbol = null;
+                        if (csvRecord.isMapped("Symbol"))
+                            symbol = csvRecord.get("Symbol");
+                        else if (csvRecord.isMapped("symbol"))
+                            symbol = csvRecord.get("symbol");
+                        else
+                            symbol = csvRecord.get(0); // Fallback to index 0 if headers fail? No, risky.
+
+                        // Actually, if IgnoreHeaderCase is true, get("Symbol") should find "symbol".
+                        // BUT if we want to be safe against different namings (e.g. "Ticker" vs
+                        // "Symbol") we can add checks.
+                        // For now sticking to Symbol/symbol.
+                        if (symbol == null && csvRecord.isMapped("Symbol"))
+                            symbol = csvRecord.get("Symbol"); // Retrying access
+
+                        // If parser is case insensitive, get("symbol") and get("Symbol") are same key
+                        // lookup?
+                        // Let's rely on the parser's case insensitivity for standard fields.
+                        // But we must handle the Date/trade_date ambiguity.
+
+                        if (csvRecord.isMapped("Symbol"))
+                            stockPrice.setSymbol(csvRecord.get("Symbol"));
+                        else
+                            stockPrice.setSymbol(csvRecord.get("symbol")); // Try lowercase just in case specific
+                                                                           // mapping exists
+
+                        String dateStr;
+                        if (csvRecord.isMapped("Date"))
+                            dateStr = csvRecord.get("Date");
+                        else if (csvRecord.isMapped("trade_date"))
+                            dateStr = csvRecord.get("trade_date");
+                        else
+                            dateStr = csvRecord.get(1); // Fallback risk
+
                         stockPrice.setTradeDate(LocalDate.parse(dateStr, formatter));
 
-                        String openStr = csvRecord.isMapped("Open") ? csvRecord.get("Open") : csvRecord.get("open");
-                        stockPrice.setOpenPrice(new BigDecimal(openStr));
-
-                        String highStr = csvRecord.isMapped("High") ? csvRecord.get("High") : csvRecord.get("high");
-                        stockPrice.setHighPrice(new BigDecimal(highStr));
-
-                        String lowStr = csvRecord.isMapped("Low") ? csvRecord.get("Low") : csvRecord.get("low");
-                        stockPrice.setLowPrice(new BigDecimal(lowStr));
-
-                        String closeStr = csvRecord.isMapped("Close") ? csvRecord.get("Close") : csvRecord.get("close");
-                        stockPrice.setClosePrice(new BigDecimal(closeStr));
-
-                        String volStr = csvRecord.isMapped("Volume") ? csvRecord.get("Volume")
-                                : csvRecord.get("volume");
-                        stockPrice.setVolume(Long.parseLong(volStr));
+                        stockPrice.setOpenPrice(new BigDecimal(getVal(csvRecord, "Open", "open")));
+                        stockPrice.setHighPrice(new BigDecimal(getVal(csvRecord, "High", "high")));
+                        stockPrice.setLowPrice(new BigDecimal(getVal(csvRecord, "Low", "low")));
+                        stockPrice.setClosePrice(new BigDecimal(getVal(csvRecord, "Close", "close")));
+                        stockPrice.setVolume(Long.parseLong(getVal(csvRecord, "Volume", "volume")));
 
                         stockPrices.add(stockPrice);
                     } catch (Exception e) {
-                        log.error("Error parsing record: {}", csvRecord, e);
+                        log.error("Error parsing record in bulk import: {}", csvRecord, e);
                     }
                 }
             }
@@ -106,6 +145,14 @@ public class StockService {
             log.error("Fail to parse CSV content: " + e.getMessage());
             throw new RuntimeException("Fail to parse CSV content: " + e.getMessage());
         }
+    }
+
+    private String getVal(CSVRecord record, String... keys) {
+        for (String key : keys) {
+            if (record.isMapped(key))
+                return record.get(key);
+        }
+        throw new IllegalArgumentException("Column not found: " + String.join(" or ", keys));
     }
 
     @Transactional
