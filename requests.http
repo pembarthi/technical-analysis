@@ -25,3 +25,45 @@ Accept: application/json
 ### Run Buld upload of Stock Data from Directory
 POST http://localhost:8081/api/stocks/bulk-upload?rootPath=C:\Users\pemba\git\stock-data
 Accept: application/json
+
+### Delete Stock Data
+DELETE http://localhost:8081/api/stocks/ARKK
+Accept: application/json
+
+### Run Pro Backtest (v2)
+POST http://localhost:8082/api/v2/analysis/backtest?symbol=ARKK&strategyName=RSI&capital=10000&from=2020-01-01&to=2023-12-31
+Accept: application/json
+
+### Run Pro Backtest CSV Download
+GET http://localhost:8082/api/v2/analysis/backtest/csv?symbol=ARKK&strategyName=RSI&capital=10000
+Accept: text/csv
+
+### Run Backtest with DSL
+POST http://localhost:8082/api/v2/dsl/backtest?symbol=ARKK
+Content-Type: text/plain
+
+strategy "RSI Pro" {
+    indicator "rsi" as r1 { period = 14 }
+    buy when { r1 < 30 }
+    sell when { r1 > 70 }
+}
+
+### Start Live Trading
+POST http://localhost:8082/api/v2/live/start?symbol=ARKK&strategyName=RSI
+Accept: application/json
+
+### Stop Live Trading
+POST http://localhost:8082/api/v2/live/stop?symbol=ARKK
+Accept: application/json
+
+### Start Paper Trading
+POST http://localhost:8082/api/v2/paper/start?symbol=ARKK&strategyName=RSI&initialCapital=100000
+Accept: application/json
+
+### Stop Paper Trading
+POST http://localhost:8082/api/v2/paper/stop?sessionId=SESSION_ID_HERE
+Accept: application/json
+
+### Get Paper Trading Status
+GET http://localhost:8082/api/v2/paper/status?sessionId=SESSION_ID_HERE
+Accept: application/json
