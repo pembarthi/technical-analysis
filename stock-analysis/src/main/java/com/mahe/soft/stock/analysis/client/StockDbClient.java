@@ -19,7 +19,10 @@ public class StockDbClient {
     private String stockDbUrl;
 
     public List<StockPriceDto> getStockPrices(String symbol) {
-        return webClientBuilder.build()
+        return webClientBuilder.codecs(configurer -> configurer
+                .defaultCodecs()
+                .maxInMemorySize(16 * 1024 * 1024)) // 16MB
+                .build()
                 .get()
                 .uri(stockDbUrl + "/api/stocks/" + symbol)
                 .retrieve()

@@ -15,7 +15,7 @@ GET http://localhost:8081/api/stocks/ARKK
 Accept: application/json
 
 ### Get Stock Prices with Date Range
-GET http://localhost:8081/api/stocks/ARKK?startDate=2019-01-01&endDate=2023-12-31
+GET http://localhost:8081/api/stocks/ARKK?startDate=2020-01-01&endDate=2023-12-31
 Accept: application/json
 
 ### Run Backtest (RSI Strategy)
