@@ -11,6 +11,7 @@ mariadb = "3.5.1"
 log4j2 = "2.24.3"
 commonsCsv = "1.10.0"
 springdoc = "2.8.3"
+spotless = "7.0.1"
 
 [libraries]
 spring-boot-starter-web = { group = "org.springframework.boot", name = "spring-boot-starter-web" }
@@ -32,3 +33,4 @@ jvm = { id = "org.jetbrains.kotlin.jvm", version = "1.9.25" }
 plugin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version = "1.9.25" }
 plugin-jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version = "1.9.25" }
 jib = { id = "com.google.cloud.tools.jib", version.ref = "jib" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }

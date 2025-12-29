@@ -2,6 +2,7 @@ plugins {
     java
     alias(libs.plugins.spring.boot) apply false
     alias(libs.plugins.spring.dependency.management) apply false
+    alias(libs.plugins.spotless)
 }
 
 allprojects {
@@ -28,5 +29,21 @@ subprojects {
 
     tasks.withType<Test> {
         useJUnitPlatform()
+    }
+}
+
+spotless {
+    java {
+        target("**/src/**/*.java")
+        importOrder()
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+    format("misc") {
+        target("**/*.gradle", "**/*.md", "**/.gitignore")
+        trimTrailingWhitespace()
+        leadingTabsToSpaces()
+        endWithNewline()
     }
 }
