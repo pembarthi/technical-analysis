@@ -36,6 +36,16 @@ public class StockService {
 
     @Transactional
     public int saveFromCsv(MultipartFile file) {
+        try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8))) {
+            return saveFromReader(reader);
+        } catch (Exception e) {
+            log.error("Fail to parse CSV file: " + e.getMessage());
+            throw new RuntimeException("Fail to parse CSV file: " + e.getMessage());
+        }
+    }
+
+    @Transactional
+    public int saveFromReader(Reader reader) {
         List<StockPrice> stockPrices = new ArrayList<>();
         // Format: d-MMM-yy (e.g. 2-Jan-12)
         java.time.format.DateTimeFormatter formatter = new java.time.format.DateTimeFormatterBuilder()
@@ -43,8 +53,7 @@ public class StockService {
                 .appendPattern("[d-MMM-yy][yyyy-MM-dd]")
                 .toFormatter(java.util.Locale.ENGLISH);
 
-        try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8))) {
-
+        try {
             // Support both TDF (Tab) and generic formats by being permissive
             CSVFormat format = CSVFormat.DEFAULT.builder()
                     .setHeader()
@@ -94,8 +103,8 @@ public class StockService {
             return stockPrices.size();
 
         } catch (Exception e) {
-            log.error("Fail to parse CSV file: " + e.getMessage());
-            throw new RuntimeException("Fail to parse CSV file: " + e.getMessage());
+            log.error("Fail to parse CSV content: " + e.getMessage());
+            throw new RuntimeException("Fail to parse CSV content: " + e.getMessage());
         }
     }
 
