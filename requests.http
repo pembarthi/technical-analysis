@@ -19,7 +19,7 @@ GET http://localhost:8081/api/stocks/ARKK?startDate=2020-01-01&endDate=2023-12-3
 Accept: application/json
 
 ### Run Backtest (RSI Strategy)
-POST http://localhost:8082/api/analysis/backtest?symbol=ARKK&strategy=RSI Strategy
+POST http://localhost:8082/api/analysis/backtest?symbol=ARKK&strategy=Swing Trading Strategy (7-20 Days)
 Accept: application/json
 
 ### Run Buld upload of Stock Data from Directory
@@ -35,17 +35,17 @@ POST http://localhost:8082/api/v2/analysis/backtest?symbol=AAPL&strategyName=Mac
 Accept: application/json
 
 ### Run Pro Backtest CSV Download
-GET http://localhost:8082/api/v2/analysis/backtest/csv?symbol=ARKK&strategyName=EmaCrossoverPro&capital=10000
+GET http://localhost:8082/api/v2/analysis/backtest/csv?symbol=AAPL&strategyName=MacdTrendPro&capital=10000
 Accept: text/csv
 
 ### Run Backtest with DSL
-POST http://localhost:8082/api/v2/dsl/backtest?symbol=ARKK
+POST http://localhost:8082/api/v2/dsl/backtest?symbol=APPL
 Content-Type: text/plain
 
-strategy "RSI Pro" {
+strategy "RSI" {
     indicator "rsi" as r1 { period = 14 }
-    buy when { r1 < 30 }
-    sell when { r1 > 70 }
+    buy when { r1 < 20 }
+    sell when { r1 > 80 }
 }
 
 ### Start Live Trading
