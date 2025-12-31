@@ -1,0 +1,513 @@
+{
+    "info": {
+        "_postman_id": "c92843d1-4467-4632-9430-81f753550e1b",
+        "name": "Technical Analysis System",
+        "description": "Collection for Stock Trading System APIs including DB Operations, Analysis, DSL, and Combined Strategies.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Stock Data Operations",
+            "item": [
+                {
+                    "name": "Get Stock Prices",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8081/api/stocks/AAPL?startDate=2023-01-01&endDate=2023-12-31",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8081",
+                            "path": [
+                                "api",
+                                "stocks",
+                                "AAPL"
+                            ],
+                            "query": [
+                                {
+                                    "key": "startDate",
+                                    "value": "2023-01-01"
+                                },
+                                {
+                                    "key": "endDate",
+                                    "value": "2023-12-31"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Upload CSV",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "file",
+                                    "type": "file",
+                                    "src": []
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://localhost:8081/api/stocks/upload",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8081",
+                            "path": [
+                                "api",
+                                "stocks",
+                                "upload"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete Stock Data",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8081/api/stocks/AAPL",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8081",
+                            "path": [
+                                "api",
+                                "stocks",
+                                "AAPL"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Trigger Bulk Upload",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8081/api/stocks/bulk-upload?rootPath=C:/Users/pemba/git/stock-data",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8081",
+                            "path": [
+                                "api",
+                                "stocks",
+                                "bulk-upload"
+                            ],
+                            "query": [
+                                {
+                                    "key": "rootPath",
+                                    "value": "C:/Users/pemba/git/stock-data"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Analysis (V1 Basics)",
+            "item": [
+                {
+                    "name": "Run Simple Backtest",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/api/analysis/backtest?symbol=AAPL&strategy=RSI Strategy",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080",
+                            "path": [
+                                "api",
+                                "analysis",
+                                "backtest"
+                            ],
+                            "query": [
+                                {
+                                    "key": "symbol",
+                                    "value": "AAPL"
+                                },
+                                {
+                                    "key": "strategy",
+                                    "value": "RSI Strategy"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Professional Analysis (V2)",
+            "item": [
+                {
+                    "name": "Run Advanced Backtest",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/api/v2/analysis/backtest?symbol=AAPL&strategyName=VolumeBreakout&capital=10000",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080",
+                            "path": [
+                                "api",
+                                "v2",
+                                "analysis",
+                                "backtest"
+                            ],
+                            "query": [
+                                {
+                                    "key": "symbol",
+                                    "value": "AAPL"
+                                },
+                                {
+                                    "key": "strategyName",
+                                    "value": "VolumeBreakout",
+                                    "description": "Available: VolumeBreakout, MovingAverageCrossover, RsiStrategy"
+                                },
+                                {
+                                    "key": "capital",
+                                    "value": "10000"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Download Backtest CSV",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/api/v2/analysis/backtest/csv?symbol=AAPL&strategyName=MovingAverageCrossover&capital=10000",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080",
+                            "path": [
+                                "api",
+                                "v2",
+                                "analysis",
+                                "backtest",
+                                "csv"
+                            ],
+                            "query": [
+                                {
+                                    "key": "symbol",
+                                    "value": "AAPL"
+                                },
+                                {
+                                    "key": "strategyName",
+                                    "value": "MovingAverageCrossover"
+                                },
+                                {
+                                    "key": "capital",
+                                    "value": "10000"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "DSL Strategies",
+            "item": [
+                {
+                    "name": "Run DSL Backtest",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "text/plain",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "STRATEGY MyCustomRSI\nWHEN RSI(14) < 30 AND Volume > 1000000 THEN BUY\nWHEN RSI(14) > 70 THEN SELL"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8080/api/v2/dsl/backtest?symbol=AAPL",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080",
+                            "path": [
+                                "api",
+                                "v2",
+                                "dsl",
+                                "backtest"
+                            ],
+                            "query": [
+                                {
+                                    "key": "symbol",
+                                    "value": "AAPL"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Combined Analysis (New)",
+            "item": [
+                {
+                    "name": "Run Combined Strategy",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/api/combined/backtest?symbol=AAPL&capital=10000",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080",
+                            "path": [
+                                "api",
+                                "combined",
+                                "backtest"
+                            ],
+                            "query": [
+                                {
+                                    "key": "symbol",
+                                    "value": "AAPL"
+                                },
+                                {
+                                    "key": "capital",
+                                    "value": "10000"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Download Combined CSV",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/api/combined/backtest/csv?symbol=AAPL&capital=10000",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080",
+                            "path": [
+                                "api",
+                                "combined",
+                                "backtest",
+                                "csv"
+                            ],
+                            "query": [
+                                {
+                                    "key": "symbol",
+                                    "value": "AAPL"
+                                },
+                                {
+                                    "key": "capital",
+                                    "value": "10000"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Paper Trading",
+            "item": [
+                {
+                    "name": "Start Simulation",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/api/v2/paper/start?symbol=AAPL&strategyName=MovingAverageCrossover&initialCapital=100000",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080",
+                            "path": [
+                                "api",
+                                "v2",
+                                "paper",
+                                "start"
+                            ],
+                            "query": [
+                                {
+                                    "key": "symbol",
+                                    "value": "AAPL"
+                                },
+                                {
+                                    "key": "strategyName",
+                                    "value": "MovingAverageCrossover"
+                                },
+                                {
+                                    "key": "initialCapital",
+                                    "value": "100000"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Simulation Status",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/api/v2/paper/status?sessionId=SESSION_ID_HERE",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080",
+                            "path": [
+                                "api",
+                                "v2",
+                                "paper",
+                                "status"
+                            ],
+                            "query": [
+                                {
+                                    "key": "sessionId",
+                                    "value": "SESSION_ID_HERE"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Stop Simulation",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/api/v2/paper/stop?sessionId=SESSION_ID_HERE",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080",
+                            "path": [
+                                "api",
+                                "v2",
+                                "paper",
+                                "stop"
+                            ],
+                            "query": [
+                                {
+                                    "key": "sessionId",
+                                    "value": "SESSION_ID_HERE"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Live Trading",
+            "item": [
+                {
+                    "name": "Start Live Trading",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/api/v2/live/start?symbol=AAPL&strategyName=MovingAverageCrossover",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080",
+                            "path": [
+                                "api",
+                                "v2",
+                                "live",
+                                "start"
+                            ],
+                            "query": [
+                                {
+                                    "key": "symbol",
+                                    "value": "AAPL"
+                                },
+                                {
+                                    "key": "strategyName",
+                                    "value": "MovingAverageCrossover"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Stop Live Trading",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/api/v2/live/stop?symbol=AAPL",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080",
+                            "path": [
+                                "api",
+                                "v2",
+                                "live",
+                                "stop"
+                            ],
+                            "query": [
+                                {
+                                    "key": "symbol",
+                                    "value": "AAPL"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
+}
