@@ -69,14 +69,14 @@ public class CombinedBacktestService {
             String signal = analysis.getSignals()[i];
             double price = c.getClose();
 
-            if (signal.equals("BUY") && cash > price) {
+            if ("BUY".equals(signal) && cash > price) {
                 double quantity = Math.floor(cash / price);
                 if (quantity > 0) {
                     shares += quantity;
                     cash -= quantity * price;
                     trades++;
                 }
-            } else if (signal.equals("SELL") && shares > 0) {
+            } else if ("SELL".equals(signal) && shares > 0) {
                 cash += shares * price;
                 shares = 0;
                 trades++;
@@ -95,7 +95,7 @@ public class CombinedBacktestService {
                     String.format("%.2f", analysis.getSmaSlow()[i]),
                     String.format("%.2f", analysis.getRsi()[i]),
                     String.format("%.2f", analysis.getMacd()[i]),
-                    signal,
+                    signal != null ? signal : "",
                     String.format("%.2f", equity)
             });
         }

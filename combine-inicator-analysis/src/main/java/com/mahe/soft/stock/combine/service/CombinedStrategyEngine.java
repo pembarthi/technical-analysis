@@ -61,7 +61,6 @@ public class CombinedStrategyEngine {
         int warmup = Math.max(config.getSmaSlowPeriod(), config.getMacdSlowPeriod() + config.getMacdSignalPeriod());
 
         for (int i = 0; i < n; i++) {
-            signals[i] = "HOLD"; // Default
             if (i < warmup)
                 continue; // Dynamic Warmup
 
