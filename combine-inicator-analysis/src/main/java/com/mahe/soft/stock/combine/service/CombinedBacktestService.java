@@ -84,20 +84,22 @@ public class CombinedBacktestService {
 
             equity = cash + (shares * price);
 
-            // Add Row
-            csvRows.add(new String[] {
-                    c.getTimestamp().toString(),
-                    String.valueOf(c.getOpen()),
-                    String.valueOf(c.getHigh()),
-                    String.valueOf(c.getLow()),
-                    String.valueOf(c.getClose()),
-                    String.format("%.2f", analysis.getSmaFast()[i]),
-                    String.format("%.2f", analysis.getSmaSlow()[i]),
-                    String.format("%.2f", analysis.getRsi()[i]),
-                    String.format("%.2f", analysis.getMacd()[i]),
-                    signal != null ? signal : "",
-                    String.format("%.2f", equity)
-            });
+            if(signal != null) {
+                // Add Row
+                csvRows.add(new String[]{
+                        c.getTimestamp().toString(),
+                        String.valueOf(c.getOpen()),
+                        String.valueOf(c.getHigh()),
+                        String.valueOf(c.getLow()),
+                        String.valueOf(c.getClose()),
+                        String.format("%.2f", analysis.getSmaFast()[i]),
+                        String.format("%.2f", analysis.getSmaSlow()[i]),
+                        String.format("%.2f", analysis.getRsi()[i]),
+                        String.format("%.2f", analysis.getMacd()[i]),
+                        signal != null ? signal : "",
+                        String.format("%.2f", equity)
+                });
+            }
         }
 
         // 4. Calculate CAGR

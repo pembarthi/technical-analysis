@@ -3,9 +3,15 @@ package com.mahe.soft.stock.db.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mahe.soft.stock.db.repository.StockPriceRepository;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -39,7 +45,7 @@ public class HighValueBacktestService {
     private void triggerBacktest(String symbol) {
         String payload = createPayload(symbol);
 
-        String response = webClientBuilder.build()
+        String responseJson = webClientBuilder.build()
                 .post()
                 .uri("http://localhost:8080/api/combined/backtest")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -48,7 +54,30 @@ public class HighValueBacktestService {
                 .bodyToMono(String.class)
                 .block();
 
-        log.info("Backtest triggered for {}: Response length {}", symbol, response != null ? response.length() : 0);
+        if (responseJson != null) {
+            try {
+                BacktestResponse backtestResponse = objectMapper.readValue(responseJson, BacktestResponse.class);
+                log.info("Backtest result for {}: CAGR = {}", symbol, backtestResponse.getCagr());
+
+                if (backtestResponse.getCagr() > 25) {
+                    writeCsvToFile(symbol, backtestResponse.getCsvContent());
+                }
+            } catch (JsonProcessingException e) {
+                log.error("Error parsing response for {}", symbol, e);
+            }
+        }
+
+        log.info("Backtest triggered for {}: Response length {}", symbol, responseJson != null ? responseJson.length() : 0);
+    }
+
+    private void writeCsvToFile(String symbol, String csvContent) {
+        try {
+            Path path = Paths.get(symbol + ".csv");
+            Files.writeString(path, csvContent);
+            log.info("CSV file written for symbol: {}.csv", symbol);
+        } catch (IOException e) {
+            log.error("Failed to write CSV file for symbol: {}", symbol, e);
+        }
     }
 
     private String createPayload(String symbol) {
@@ -90,6 +119,20 @@ public class HighValueBacktestService {
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Error creating payload", e);
         }
+    }
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    static class BacktestResponse {
+        private String symbol;
+        private double initialCapital;
+        private double finalCapital;
+        private double totalReturnPercent;
+        private double cagr;
+        private int totalTrades;
+        private String csvContent;
     }
 
     @Data
