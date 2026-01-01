@@ -60,7 +60,7 @@ public class HighValueBacktestService {
                 log.info("Backtest result for {}: CAGR = {}", symbol, backtestResponse.getCagr());
 
                 if (backtestResponse.getCagr() > 25) {
-                    writeCsvToFile(symbol, backtestResponse.getCsvContent());
+                    writeCsvToFile(symbol+"_"+backtestResponse.getCagr(), backtestResponse.getCsvContent());
                 }
             } catch (JsonProcessingException e) {
                 log.error("Error parsing response for {}", symbol, e);

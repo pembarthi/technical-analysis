@@ -16,6 +16,6 @@ public interface StockPriceRepository extends JpaRepository<StockPrice, StockPri
 
     void deleteBySymbol(String symbol);
 
-    @org.springframework.data.jpa.repository.Query(value = "SELECT DISTINCT symbol FROM stock_prices WHERE close_price > 100", nativeQuery = true)
+    @org.springframework.data.jpa.repository.Query(value = "SELECT DISTINCT symbol FROM stock_prices WHERE close_price > 50", nativeQuery = true)
     List<String> findHighValueSymbols();
 }
