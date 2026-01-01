@@ -286,9 +286,19 @@
                     "name": "Run Combined Strategy",
                     "request": {
                         "method": "POST",
-                        "header": [],
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"symbol\": \"AAPL\",\n  \"capital\": 10000,\n  \"strategyConfig\": {\n    \"smaFastPeriod\": 50,\n    \"smaSlowPeriod\": 200,\n    \"rsiPeriod\": 14,\n    \"rsiOverbought\": 70,\n    \"rsiOversold\": 30,\n    \"macdFastPeriod\": 12,\n    \"macdSlowPeriod\": 26,\n    \"macdSignalPeriod\": 9,\n    \"bbPeriod\": 20,\n    \"bbDevUp\": 2.0,\n    \"bbDevDn\": 2.0\n  }\n}"
+                        },
                         "url": {
-                            "raw": "http://localhost:8080/api/combined/backtest?symbol=AAPL&capital=10000",
+                            "raw": "http://localhost:8080/api/combined/backtest",
                             "protocol": "http",
                             "host": [
                                 "localhost"
@@ -298,16 +308,6 @@
                                 "api",
                                 "combined",
                                 "backtest"
-                            ],
-                            "query": [
-                                {
-                                    "key": "symbol",
-                                    "value": "AAPL"
-                                },
-                                {
-                                    "key": "capital",
-                                    "value": "10000"
-                                }
                             ]
                         }
                     },
