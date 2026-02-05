@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: stock-mcp-server
+  ai:
+    mcp:
+      server:
+        stdio:
+          enabled: true
+        transport: stdio
+        name: stock-mcp-server
+        version: 0.0.1
+server.port: 8083

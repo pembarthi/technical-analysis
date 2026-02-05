@@ -11,6 +11,8 @@ allprojects {
 
     repositories {
         mavenCentral()
+        maven { url = uri("https://repo.spring.io/milestone") }
+        maven { url = uri("https://repo.spring.io/snapshot") }
     }
 }
 
@@ -18,6 +20,12 @@ subprojects {
     apply(plugin = "java")
     apply(plugin = "org.springframework.boot")
     apply(plugin = "io.spring.dependency-management")
+
+    configure<io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension> {
+        imports {
+            mavenBom("org.springframework.ai:spring-ai-bom:1.0.0-SNAPSHOT")
+        }
+    }
 
     java {
         toolchain {

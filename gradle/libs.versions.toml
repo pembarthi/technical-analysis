@@ -12,6 +12,7 @@ log4j2 = "2.24.3"
 commonsCsv = "1.10.0"
 springdoc = "2.8.3"
 spotless = "7.0.1"
+springAi = "1.0.0-SNAPSHOT"
 
 [libraries]
 spring-boot-starter-web = { group = "org.springframework.boot", name = "spring-boot-starter-web" }
@@ -24,6 +25,7 @@ mariadb-java-client = { group = "org.mariadb.jdbc", name = "mariadb-java-client"
 ta-lib = { group = "com.tictactec", name = "ta-lib", version.ref = "taLib" }
 commons-csv = { group = "org.apache.commons", name = "commons-csv", version.ref = "commonsCsv" }
 springdoc-openapi-starter-webmvc-ui = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
+spring-ai-mcp-server-spring-boot-starter = { group = "org.springframework.ai", name = "spring-ai-mcp-server-spring-boot-starter", version.ref = "springAi" }
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }
 
 [plugins]
