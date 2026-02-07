@@ -26,6 +26,7 @@ ta-lib = { group = "com.tictactec", name = "ta-lib", version.ref = "taLib" }
 commons-csv = { group = "org.apache.commons", name = "commons-csv", version.ref = "commonsCsv" }
 springdoc-openapi-starter-webmvc-ui = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
 spring-ai-mcp-server-spring-boot-starter = { group = "org.springframework.ai", name = "spring-ai-mcp-server-spring-boot-starter", version.ref = "springAi" }
+mcp-java-sdk = { group = "io.modelcontextprotocol.sdk", name = "mcp-sdk", version = "0.1.0" }
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }
 
 [plugins]
