@@ -1,0 +1,1 @@
+My first agent is a simple chatbot that can answer basic questions about the weather. It uses a pre-trained language model to understand user input and generate responses. The agent can provide information about current weather conditions, forecasts, and general weather-related queries. It is designed to be user-friendly and can handle a variety of weather-related topics.
